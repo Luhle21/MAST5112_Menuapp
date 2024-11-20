@@ -1,0 +1,33 @@
+[
+    {
+      "course": "Starter",
+      "options": [
+        {
+          "name": "Bruschetta",
+          "description": "Fresh tomatoes, basil, and mozzarella on toasted baguette, drizzled with balsamic glaze",
+          "price": 80
+        }
+      ]
+    },
+    {
+      "course": "Main",
+      "options": [
+        {
+          "name": "Grilled Chicken Fettuccine",
+          "description": "Tender grilled chicken served with fettuccine pasta, tossed in a rich and creamy Alfredo sauce",
+          "price": 160
+        }
+        
+      ]
+    },
+    {
+      "course": "Dessert",
+      "options": [
+        {
+          "name": "Chocolate Lava Cake",
+          "description": "Warm and gooey chocolate cake, served with a scoop of vanilla ice cream",
+          "price": 95
+        }
+      ]
+    }
+  ] 
