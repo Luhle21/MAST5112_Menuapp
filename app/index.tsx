@@ -25,10 +25,10 @@ export default function WelcomeScreen({ navigation }) {
       <View style={styles.topcontainer}>
         <Image source={require('../assets/logo.png')} style={{ width: 150, height: 150 }} />
       </View>
-      <View style={styles.bottomcontainer}>
+      <View /*style={styles.bottomcontainer}*/>
         <Text style={styles.text}>Welcome to our Menu app</Text>
-        <Button title="View Menu" onPress={() => navigation.navigate('Filter')} color="maroon" />
-        <Button title="Add Dish" onPress={() => setPassPromptVisible(true)} color="maroon" />
+        <Button style={styles.button} title="View Menu" onPress={() => navigation.navigate('Filter')} color="maroon" />
+        <Button style={styles.button} title="Add Dish" onPress={() => setPassPromptVisible(true)} color="maroon" />
       </View>
 
       {/* Password Prompt */}
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignContent: 'space-evenly',
-    padding: 120,// Space inside the container
+    padding: 150,// Space inside the container
     width: 200,
     height: 200,
     borderColor: 'maroon',
@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
 
   button: {
     width: 100,
-    height: 50,
-    padding: 10,
+    paddingHorizontal: 32,
+    paddingVertical: 16,
     borderRadius: 10,
   },
 
