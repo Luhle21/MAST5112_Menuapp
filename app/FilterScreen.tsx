@@ -4,122 +4,53 @@ import menulist from '../menu.json';
 
 export default function FilterScreen({ navigation }) {
     const [selectedCourse, setSelectedCourse] = useState('');
-    const [newDish, setNewDish] = useState({ name: '', description: '', price: '', course: '' });
+    const [addedDishes, setAddedDishes] = useState([]);
 
-    {/*} const filterMenu = (course) => {
-        setSelectedCourse(course);
-    };*/}
+    // Filter combine menu (menulist + addedDishes)
+    const getFilteredMenu = () => {
+        const combinedMenu = [...menulist];
 
-    // Filter menu by course
-    const filteredMenu = menulist.filter((menu) => menu.course === selectedCourse || !selectedCourse
-    );
-
-    // Total items in the filtered menu
-    const itemCount = filteredMenu.reduce(
-        (total, menu) => total + menu.options.length,
-        0
-    );
-
-    // Add a new dish to the menu
-    const addDish = () => {
-        if (newDish.name && newDish.description && newDish.price && newDish.course) {
-            const courseIndex = menulist.findIndex((menu) => menu.course === newDish.course);
+        addedDishes.forEach((dish) => {
+            const courseIndex = combineMenu.findIndex((menu) => menu.course === dish.course);
             if (courseIndex !== -1) {
-                // Add to existing course
-                menulist[courseIndex].option.push({
-                    name: newDish.name,
-                    description: newDish.description,
-                    price: parseFloat(newDish.price),
-                });
+                combinedMenu[courseIndex].options.push(dish);
             } else {
-                // Add new course
-                menulist.push({
-                    course: newDish.course,
-                    option: [{
-                        name: newDish.name,
-                        description: newDish.description,
-                        price: parseFloat(newDish.price),
-                    }],
+                combinedMenu.push({
+                    course: dish.course,
+                    options: [dish]
                 });
             }
-            setNewDish({ name: '', description: '', price: '', course: '' });
-            alert("Dish added!");
-        } else {
-            alert("Please fill in all fields!");
-        }
-    };
 
-    // Handle dish selection
-    const handleDishSelection = (dish) => {
-        Alert.alert(
-            "Dish Selected",
-            `Name: ${dish.name}\nDescription: ${dish.description}\nPrice: R ${dish.price}`
-        );
+        });
+        return combinedMenu.filter((menu) => menu.course === selectedCourse || !selectedCourse);
     };
+    const FilteredMenu = getFilteredMenu();
 
+    //Total items in the filter menu
+    const itemCount = FilteredMenu.reduce((
+        total, menu) => total + menu.options.length,
+        0
+    );
     return (
-        <View style={styles.container}>
-            <Text style={styles.text} >Filter Menu by Course</Text>
+        <View>
+            <Text>Filter Menu</Text>
             <View>
-                <Button title="All" onPress={() => filterMenu('')} />
-                <Button title="Starters" onPress={() => filterMenu('Starter')} />
-                <Button title="Mains" onPress={() => filterMenu('Main')} />
-                <Button title="Desserts" onPress={() => filterMenu('Dessert')} />
+                <Button title="ALL" onPress={() => setSelectedCourse('')} />
+                <Button title="Starter" onPress={() => setSelectedCourse('Starter')} />
+                <Button title="Main" onPress={() => setSelectedCourse('Main')} />
+                <Button title="Dessert" onPress={() => setSelectedCourse('Dessert')} />
             </View>
 
-            <Text> Total Item: {itemCount} </Text>
+            <Text styles={styles.info}> Total Item: {itemCount}</Text>
 
-            <FlatList
-                data={filteredMenu}
-                keyExtractor={(item) => item.course}
-                renderItem={({ item }) => (
-                    <View>
-                        <Text style={styles.course}>{item.course}</Text>
-                        {item.options.map((option, index) => (
-                            <TouchableOpacity
-                                style={styles.option}
-                                key={index}
-                                onPress={() => handleDishSelection(option)}
-                            >
-                                <Text style={styles.name}>{option.name}</Text>
-                                <Text style={styles.info}>{option.description}</Text>
-                                <Text style={styles.info}>R {option.price}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                )}
-            />
+            <FlatList  >
 
-            <Text> Add New Dish </Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Dish Name"
-                value={newDish.name}
-                onChangeText={(text) => setNewDish({ ...newDish, name: text })}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Description"
-                value={newDish.description}
-                onChangeText={(text) => setNewDish({ ...newDish, description: text })}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Price"
-                keyboardType="numeric"
-                value={newDish.price}
-                onChangeText={(text) => setNewDish({ ...newDish, price: text })}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Course (e.g., Starter, Main, Dessert)"
-                value={newDish.course}
-                onChangeText={(text) => setNewDish({ ...newDish, course: text })}
-            />
-            <Button title="Add Dish" onPress={addDish} />
+            </FlatList>
         </View>
+
     );
 }
+
 
 const styles = StyleSheet.create({
     container: {

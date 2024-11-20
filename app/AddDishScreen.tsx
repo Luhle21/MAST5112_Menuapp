@@ -1,26 +1,75 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TextInput, Button, FlatList } from "react-native";
+import { Text, View, StyleSheet, TextInput, Button, FlatList, Alert } from "react-native";
 import FilterScreen from "./FilterScreen";
+import menulist from "../menu.json";
 
 export default function AddDishScreen({ navigation }) {
     const [menuItems, setMenuItems] = useState([]);
     const [newDish, setNewDish] = useState({ name: '', description: '', price: '', course: '' });
+    const [menuButtonVisible, setMenuButtonVisible] = useState(false);
 
     const addDish = () => {
         if (newDish.name && newDish.description && newDish.price && newDish.course) {
             setMenuItems([...menuItems, newDish]);
+            const courseIndex = menulist.findIndex((menu) => menu.course === newDish.course);
+            if (courseIndex !== -1) {
+                // Add to existing course
+                menulist[courseIndex].option.push({
+                    name: newDish.name,
+                    description: newDish.description,
+                    price: parseFloat(newDish.price),
+                });
+            } else {
+                // Add a new course
+                menulist.push({
+                    course: newDish.course,
+                    option: [{
+                        name: newDish.name,
+                        description: newDish.description,
+                        price: parseFloat(newDish.price),
+                    }],
+                });
+            }
+            setMenuItems([...menuItems, newDish]); // Track added items
             setNewDish({ name: '', description: '', price: '', course: '' });
+            alert("Dish added!");
+        } else {
+            alert("Please fill in all fields!");
         }
     };
 
     const removeDish = (index) => {
-        setMenuItems(menuItems.filter((_, i) => i !== index));
+        Alert.alert(
+            "Remove Dish",
+            "Are you sure you want to remove this dish?",
+            [
+                { text: "Cancel", style: "cancel" },
+                {
+                    text: "Yes",
+                    onPress: () => {
+                        // Remove from both the local state and the menu.json structure
+                        const updatedItems = [...menuItems];
+                        const dishToRemove = updatedItems[index];
+                        const courseIndex = menulist.findIndex(menu => menu.course === dishToRemove.course);
+
+                        if (courseIndex !== -1) {
+                            menulist[courseIndex].option = menulist[courseIndex].option.filter(
+                                (option) => options.name !== dishToRemove.name
+                            );
+                        }
+
+                        updatedItems.splice(index, 1);
+                        setMenuItems(updatedItems);
+                    },
+                },
+            ]
+        );
     };
 
     const saveMenu = () => {
-        // Save the menu to a persistent store or pass it to the home screen.
-        console.log('Menu saved:', menuItems);
-        navigation.goBack();
+        // Display the menu button after saving
+        setMenuButtonVisible(true);
+        alert("Menu saved!");
     };
 
     return (
@@ -60,11 +109,17 @@ export default function AddDishScreen({ navigation }) {
                 renderItem={({ item, index }) => (
                     <View style={styles.menuItem}>
                         <Text>{item.name} - {item.course}</Text>
-                        <Button title="Remove" onPress={() => removeDish(index)} />
+                        <Button title="Remove" onPress={() => removeDish(index)} color={"maroon"} />
                     </View>
                 )}
             />
-            <Button title="Save Menu" onPress={saveMenu} />
+            <Button title="Save Menu" onPress={saveMenu} color={"maroon"} />
+            {/*Condtion Menu Button*/}
+            {menuButtonVisible && (
+                <Button title="Menu Saved"
+                    onPress={() => setMenuButtonVisible(false)}
+                />
+            )}
         </View>
     );
 }
