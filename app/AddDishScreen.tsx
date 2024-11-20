@@ -23,21 +23,24 @@ export default function AddDishScreen({ navigation }) {
     };
 
     return (
-        <View >
+        <View style={styles.container}>
             <Text style={styles.text}> Add or Remove Menu Items </Text>
             <TextInput style={styles.input}
                 placeholder="Dish Name"
+                placeholderTextColor='maroon'
                 value={newDish.name}
                 onChangeText={(text) => setNewDish({ ...newDish, name: text })} />
             <TextInput
                 style={styles.input}
                 placeholder="Description"
+                placeholderTextColor='maroon'
                 value={newDish.description}
                 onChangeText={(text) => setNewDish({ ...newDish, description: text })}
             />
             <TextInput
                 style={styles.input}
                 placeholder="Price"
+                placeholderTextColor='maroon'
                 keyboardType="numeric"
                 value={newDish.price}
                 onChangeText={(text) => setNewDish({ ...newDish, price: text })}
@@ -45,6 +48,7 @@ export default function AddDishScreen({ navigation }) {
             <TextInput
                 style={styles.input}
                 placeholder="Course (e.g., Starter, Main, Dessert)"
+                placeholderTextColor='maroon'
                 value={newDish.course}
                 onChangeText={(text) => setNewDish({ ...newDish, course: text })}
             />
@@ -59,26 +63,37 @@ export default function AddDishScreen({ navigation }) {
                     </View>
                 )}
             />
-            <Button title="Save Menu" onPress={saveMenu} />
+            <Button style={styles.button} title="Save Menu" onPress={saveMenu} />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 2, // Occupies the full screen
+        flex: 1, // Occupies the full screen
         justifyContent: 'center', // Center vertically
         alignItems: 'center', // Center horizontally
         backgroundColor: '#f8f8f8', // Optional background color
     },
 
-    input: {},
+    input: {
+        fontSize: 15,
+        width: 300,
+        height: 70,
+        borderRadius: 10,
+        borderWidth: 2,
+        marginBottom: 20,// Add some space between inputs
+        borderColor: "maroon",
+        textAlign: 'center',
+
+    },
 
     text: {
         fontSize: 20,
         fontWeight: 'bold',
         fontFamily: 'cochin',
         color: 'maroon',
+        alignContent: 'center',
         marginBottom: 15,
     },
 
