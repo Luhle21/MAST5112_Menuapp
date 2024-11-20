@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, TextInput, Button, FlatList } from "react-native";
+import FilterScreen from "./FilterScreen";
 
 export default function AddDishScreen({ navigation }) {
     const [menuItems, setMenuItems] = useState([]);
@@ -52,7 +53,7 @@ export default function AddDishScreen({ navigation }) {
                 value={newDish.course}
                 onChangeText={(text) => setNewDish({ ...newDish, course: text })}
             />
-            <Button style={styles.button} title="Add Dish" onPress={addDish} />
+            <Button title="Add Dish" onPress={addDish} />
             <FlatList
                 data={menuItems}
                 keyExtractor={(item, index) => index.toString()}
@@ -63,7 +64,7 @@ export default function AddDishScreen({ navigation }) {
                     </View>
                 )}
             />
-            <Button style={styles.button} title="Save Menu" onPress={saveMenu} />
+            <Button title="Save Menu" onPress={saveMenu} />
         </View>
     );
 }

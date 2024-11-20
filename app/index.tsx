@@ -27,8 +27,8 @@ export default function WelcomeScreen({ navigation }) {
       </View>
       <View /*style={styles.bottomcontainer}*/>
         <Text style={styles.text}>Welcome to our Menu app</Text>
-        <Button style={styles.button} title="View Menu" onPress={() => navigation.navigate('Filter')} color="maroon" />
-        <Button style={styles.button} title="Add Dish" onPress={() => setPassPromptVisible(true)} color="maroon" />
+        <Button title="View Menu" onPress={() => navigation.navigate('Filter')} color="maroon" />
+        <Button title="Add Dish" onPress={() => setPassPromptVisible(true)} color="maroon" />
       </View>
 
       {/* Password Prompt */}
@@ -40,7 +40,7 @@ export default function WelcomeScreen({ navigation }) {
             secureTextEntry={true}
             value={password}
             onChangeText={setPasword} />
-          <Button style={styles.button} title="Submit" onPress={handlePasswordSubmit} color="maroon" />
+          <Button title="Submit" onPress={handlePasswordSubmit} color="maroon" />
           <Button
             title="Cancel"
             onPress={() => setPassPromptVisible(false)} color="red" />
