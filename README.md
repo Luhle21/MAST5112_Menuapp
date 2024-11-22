@@ -48,3 +48,30 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+# Usage
+
+## Home Screen
+- "View Menu" button to view the Dishes and courses
+- "Add Dish" button for the chef to add dish items to the menu
+- Chef login, Chef enters password = "Chef123" for the Chef to add and remove dishes to the Menu screen. 
+
+## Adding a Dish:
+- Navigate to the Add Dish Screen.
+- Fill out the form with dish details.
+- Press the "Add Dish" button to add the dish.
+-Press the "Save Menu" button to make the dish visible on the Filter Screen.
+
+## Filtering Dishes:
+- On the Filter Screen, use the buttons to filter by course or view all items.
+- The total number of items is displayed above the menu.
+
+## Selecting a Dish:
+- Tap on a dish to view its details in a notification.
+  
+## Removing a Dish:
+- On the Add Dish Screen, remove a dish by pressing the "Remove" button.
+
+# YouTube Link
+- https://youtu.be/D5AiY6F90wY
+   
