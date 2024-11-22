@@ -14,7 +14,7 @@ export default function AddDishScreen({ navigation }) {
             const courseIndex = menulist.findIndex((menu) => menu.course === newDish.course);
             if (courseIndex !== -1) {
                 // Add to existing course
-                menulist[courseIndex].option.push({
+                menulist[courseIndex].options.push({
                     name: newDish.name,
                     description: newDish.description,
                     price: parseFloat(newDish.price),
@@ -23,7 +23,7 @@ export default function AddDishScreen({ navigation }) {
                 // Add a new course
                 menulist.push({
                     course: newDish.course,
-                    option: [{
+                    options: [{
                         name: newDish.name,
                         description: newDish.description,
                         price: parseFloat(newDish.price),
@@ -102,18 +102,18 @@ export default function AddDishScreen({ navigation }) {
                 value={newDish.course}
                 onChangeText={(text) => setNewDish({ ...newDish, course: text })}
             />
-            <Button title="Add Dish" onPress={addDish} />
+            <Button title="Add Dish" onPress={addDish} color={'maroon'} />
             <FlatList
                 data={menuItems}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item, index }) => (
                     <View style={styles.menuItem}>
                         <Text>{item.name} - {item.course}</Text>
-                        <Button title="Remove" onPress={() => removeDish(index)} color={"maroon"} />
+                        <Button title="Remove" onPress={() => removeDish(index)} color={'maroon'} />
                     </View>
                 )}
             />
-            <Button title="Save Menu" onPress={saveMenu} color={"maroon"} />
+            <Button title="Save Menu" onPress={saveMenu} color={'maroon'} />
             {/*Condtion Menu Button*/}
             {menuButtonVisible && (
                 <Button title="Menu Saved"
